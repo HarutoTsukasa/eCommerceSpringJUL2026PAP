@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeLeaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+	<title>Admin Dashboard | Panel de Control</title>
+	<!-- Bootstrap + Icons + Font Awesome 6 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+	<!-- Font Awesome 6 (Free CDN) -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+	<!-- Google Fonts: Inter para tipografía moderna -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.datatables.net/2.3.8/css/dataTables.dataTables.css" />
+	<link rel="stylesheet" href="assets/css/dashboardStyles.css">
+	<!-- Chart.js 4.4.6 -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+	<!-- =======================================================
+    * Template Name: eCommerce-FrontEndAdminDashboard
+    * Template URL: 
+    * Updated: Jul 2026
+    * Author: HarutoTsukasa
+    * License: Este proyecto está bajo la [Licencia MIT](LICENSE). Siéntete libre de usarlo y modificarlo.
+    ======================================================== -->
+</head>
+
+<body>
+
+	<div class="dashboard-wrapper">
+		<!-- SIDEBAR (panel lateral): offcanvas-lg -> offcanvas real en móvil/tablet, fijo en desktop -->
+		<aside class="sidebar offcanvas-lg offcanvas-start" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+			<div class="sidebar-header d-flex justify-content-between align-items-center">
+				<div>
+					<h4 id="sidebarLabel"><i class="fas fa-chart-line me-2"></i> Admin eCommerce</h4>
+					<span>Panel de control v2.0</span>
+				</div>
+				<button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas"
+					data-bs-target="#sidebar" aria-label="Cerrar"></button>
+			</div>
+			<ul class="nav-sidebar">
+				<li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+				<li><a href="#"><i class="fas fa-users"></i> Usuarios</a></li>
+				<li><a href="#"><i class="fas fa-table"></i> Analíticas</a></li>
+				<li><a href="#"><i class="fas fa-shopping-cart"></i> Ventas</a></li>
+				<li><a href="#"><i class="fas fa-file-alt"></i> Reportes</a></li>
+				<li><a href="#"><i class="fas fa-cog"></i> Configuración</a></li>
+				<li><a href="index.html"><i class="fas fa-sign-out"></i> Salir</a></li>
+			</ul>
+			<div class="sidebar-footer">
+				<small><i class="fas fa-circle-user me-1"></i> Admin principal</small><br>
+				<small class="text-white-50">versión 1.0 | © 2026</small>
+			</div>
+		</aside>
+
+		<!-- CONTENIDO PRINCIPAL -->
+		<div class="main-content">
+			<!-- TOP NAVBAR -->
+			<div class="top-navbar">
+				<div class="d-flex align-items-center gap-3">
+					<button class="btn btn-outline-menu mobile-toggle-btn" type="button" data-bs-toggle="offcanvas"
+						data-bs-target="#sidebar" aria-controls="sidebar">
+						<i class="fas fa-bars"></i>
+					</button>
+					<div class="page-title">
+						<h2>Dashboard</h2>
+						<p class="text-muted mb-0 small">Bienvenido de nuevo.</p>
+					</div>
+				</div>
+				<div class="user-area">
+					<i class="fas fa-bell text-secondary fs-5"></i>
+					<div class="d-flex align-items-center gap-2">
+						<div class="avatar-icon">SE</div>
+						<div class="d-none d-sm-block">
+							<span class="fw-semibold">Spring eCommerce</span><br>
+							<small class="text-muted">Administrador</small>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- CONTENIDO DINÁMICO (CARDS, CHARTS, TABLA) -->
+			<div class="container-fluid px-3 px-lg-4 py-4">
+				<!-- Fila de métricas / cards -->
+				<div class="row g-4 mb-4">
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Ingresos
+										totales</span>
+									<h3 class="mt-2 mb-0 fw-bold">$43,892</h3>
+									<small class="text-success"><i class="fas fa-arrow-up"></i> +12.5%</small>
+								</div>
+								<div class="stat-icon bg-primary bg-opacity-10 text-primary">
+									<i class="fas fa-dollar-sign"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Usuarios</span>
+									<h3 class="mt-2 mb-0 fw-bold">2,845</h3>
+									<small class="text-success"><i class="fas fa-arrow-up"></i> +8.2%</small>
+								</div>
+								<div class="stat-icon bg-info bg-opacity-10 text-info">
+									<i class="fas fa-user-group"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Pedidos</span>
+									<h3 class="mt-2 mb-0 fw-bold">1,239</h3>
+									<small class="text-danger"><i class="fas fa-arrow-down"></i> -3.1%</small>
+								</div>
+								<div class="stat-icon bg-warning bg-opacity-10 text-warning">
+									<i class="fas fa-truck"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Tasa conversión</span>
+									<h3 class="mt-2 mb-0 fw-bold">68.4%</h3>
+									<small class="text-success"><i class="fas fa-arrow-up"></i> +5%</small>
+								</div>
+								<div class="stat-icon bg-success bg-opacity-10 text-success">
+									<i class="fas fa-chart-simple"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- datatables -->
+				<div class="card-dashboard card p-3 p-lg-4">
+					<table id="myTable" class="catalog-table table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Producto</th>
+								<th>Descripción</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Stock</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td data-label="ID">001</td>
+								<td data-label="Producto">Smartphone Pro X</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$599.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">002</td>
+								<td data-label="Producto">Reloj Inteligente</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$199.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">003</td>
+								<td data-label="Producto">Auriculares Premium</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$149.99</td>
+								<td data-label="Cantidad">0</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-danger">Agotado</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">004</td>
+								<td data-label="Producto">Zapatillas Deportivas</td>
+								<td data-label="Descripción">Ropa</td>
+								<td data-label="Precio">$89.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">005</td>
+								<td data-label="Producto">Set de Cocina Premium</td>
+								<td data-label="Descripción">Hogar</td>
+								<td data-label="Precio">$249.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">006</td>
+								<td data-label="Producto">Tablet Ultra HD</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$349.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">007</td>
+								<td data-label="Producto">Camiseta Algodón</td>
+								<td data-label="Descripción">Ropa</td>
+								<td data-label="Precio">$29.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">008</td>
+								<td data-label="Producto">Mochila Impermeable</td>
+								<td data-label="Descripción">Accesorios</td>
+								<td data-label="Precio">$59.99</td>
+								<td data-label="Cantidad">0</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-danger">Agotado</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">009</td>
+								<td data-label="Producto">Smart TV 55" 4K</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$699.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">010</td>
+								<td data-label="Producto">Set de Jardinería</td>
+								<td data-label="Descripción">Hogar</td>
+								<td data-label="Precio">$79.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- Gráficos: línea y barras -->
+				<div class="row g-4 mb-4">
+					<div class="col-lg-6">
+						<div class="card-dashboard card p-3 p-lg-4">
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<h5 class="fw-semibold mb-0"><i class="fas fa-chart-line me-2 text-primary"></i> Ventas
+									mensuales</h5>
+								<span class="badge bg-light text-dark">2025</span>
+							</div>
+							<canvas id="salesChart" style="max-height: 280px; width:100%"></canvas>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card-dashboard card p-3 p-lg-4">
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<h5 class="fw-semibold mb-0"><i class="fas fa-chart-bar me-2 text-info"></i> Usuarios
+									por segmento</h5>
+								<span class="badge bg-light text-dark">activos</span>
+							</div>
+							<canvas id="usersChart" style="max-height: 280px; width:100%"></canvas>
+						</div>
+					</div>
+				</div>
+
+				<!-- Tabla de pedidos recientes -->
+				<div class="card-dashboard card p-3 p-lg-4">
+					<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+						<h5 class="fw-semibold mb-2 mb-sm-0"><i class="fas fa-list-ul me-2 text-secondary"></i> Pedidos
+							recientes</h5>
+						<button class="btn btn-sm btn-outline-primary">Ver todos <i
+								class="fas fa-arrow-right ms-1"></i></button>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-hover align-middle table-custom">
+							<thead>
+								<tr>
+									<th>ID Pedido</th>
+									<th>Cliente</th>
+									<th>Producto</th>
+									<th>Fecha</th>
+									<th>Estado</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>#00124</td>
+									<td>María López</td>
+									<td>Laptop Pro</td>
+									<td>2025-06-02</td>
+									<td><span class="badge-status"><i class="fas fa-check-circle me-1"></i>
+											Completado</span></td>
+									<td>$1,299</td>
+								</tr>
+								<tr>
+									<td>#00123</td>
+									<td>Carlos Ruiz</td>
+									<td>Smartphone X</td>
+									<td>2025-06-01</td>
+									<td><span class="badge-status"><i class="fas fa-check-circle me-1"></i>
+											Completado</span></td>
+									<td>$899</td>
+								</tr>
+								<tr>
+									<td>#00122</td>
+									<td>Andrea Gómez</td>
+									<td>Auriculares inalámbricos</td>
+									<td>2025-05-30</td>
+									<td><span
+											class="badge bg-warning bg-opacity-10 text-warning px-3 py-1 rounded-pill"><i
+												class="fas fa-clock me-1"></i> Pendiente</span></td>
+									<td>$129</td>
+								</tr>
+								<tr>
+									<td>#00121</td>
+									<td>Fernando Díaz</td>
+									<td>Monitor 27" 4K</td>
+									<td>2025-05-29</td>
+									<td><span class="badge-status"><i class="fas fa-check-circle me-1"></i>
+											Completado</span></td>
+									<td>$450</td>
+								</tr>
+								<tr>
+									<td>#00120</td>
+									<td>Lucía Méndez</td>
+									<td>Teclado mecánico</td>
+									<td>2025-05-28</td>
+									<td><span
+											class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-1 rounded-pill">Envío</span>
+									</td>
+									<td>$89</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- footer ligero -->
+				<footer class="d-flex justify-content-between mt-4 pt-2 text-muted">
+					<small>© 2026 Admin Dashboard — Todos los derechos reservados</small>
+					<small><i class="fas fa-chart-simple"></i> Datos en tiempo real de demostración</small>
+				</footer>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-4.0.0.js"></script>
+	<script src="https://cdn.datatables.net/2.3.8/js/dataTables.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/js/dashboardScripts.js"></script>
+</body>
+
+</html>
