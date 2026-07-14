@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://thymeLeaf.org">
+
+<head th:insert="~{/administrador/template_admin.html::head}"></head>
+
+<body>
+
+	<div class="dashboard-wrapper">
+		<!-- SIDEBAR (panel lateral): offcanvas-lg -> offcanvas real en móvil/tablet, fijo en desktop -->
+		<div th:insert="~{/administrador/template_admin.html::sidebar}"></div>
+
+		<!-- CONTENIDO PRINCIPAL -->
+		<div class="main-content">
+			<!-- TOP NAVBAR -->
+			<div th:insert="~{/administrador/template_admin.html::topbar}"></div>
+
+			<!-- CONTENIDO DINÁMICO (CARDS, CHARTS, TABLA) -->
+			<div class="container-fluid px-3 px-lg-4 py-4">
+
+
+				<div class="pagetitle">
+					<h1>Panel de Administrador</h1>
+					<nav>
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a th:href="@{/administrador}">Home</a></li>
+							<li class="breadcrumb-item active">Administrador</li>
+						</ol>
+					</nav>
+				</div><!-- End Page Title -->
+
+				<div class="col-lg-4" th:each="producto: ${productos}"><!--div 2-->
+					<div class="card">
+						<img th:src="@{/images/{img} (img=${producto.imagen})}" class="card-img-top"
+							th:alt="${producto.nombre}">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${producto.nombre}"></h5>
+							<p class="card-text" th:text="${producto.descripcion}"></p>
+						</div>
+					</div>
+				</div>
+
+				<!-- Fila de métricas / cards -->
+				<div class="row g-4 mb-4">
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Ingresos
+										totales</span>
+									<h3 class="mt-2 mb-0 fw-bold">$43,892</h3>
+									<small class="text-success"><i class="fas fa-arrow-up"></i> +12.5%</small>
+								</div>
+								<div class="stat-icon bg-primary bg-opacity-10 text-primary">
+									<i class="fas fa-dollar-sign"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Usuarios</span>
+									<h3 class="mt-2 mb-0 fw-bold">2,845</h3>
+									<small class="text-success"><i class="fas fa-arrow-up"></i> +8.2%</small>
+								</div>
+								<div class="stat-icon bg-info bg-opacity-10 text-info">
+									<i class="fas fa-user-group"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Pedidos</span>
+									<h3 class="mt-2 mb-0 fw-bold">1,239</h3>
+									<small class="text-danger"><i class="fas fa-arrow-down"></i> -3.1%</small>
+								</div>
+								<div class="stat-icon bg-warning bg-opacity-10 text-warning">
+									<i class="fas fa-truck"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-xl-3">
+						<div class="stat-card card p-3">
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<span class="text-secondary text-uppercase small fw-semibold">Tasa conversión</span>
+									<h3 class="mt-2 mb-0 fw-bold">68.4%</h3>
+									<small class="text-success"><i class="fas fa-arrow-up"></i> +5%</small>
+								</div>
+								<div class="stat-icon bg-success bg-opacity-10 text-success">
+									<i class="fas fa-chart-simple"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- datatables -->
+				<div class="card-dashboard card p-3 p-lg-4">
+					<table id="myTable" class="catalog-table table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Producto</th>
+								<th>Descripción</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>Stock</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td data-label="ID">001</td>
+								<td data-label="Producto">Smartphone Pro X</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$599.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">002</td>
+								<td data-label="Producto">Reloj Inteligente</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$199.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">003</td>
+								<td data-label="Producto">Auriculares Premium</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$149.99</td>
+								<td data-label="Cantidad">0</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-danger">Agotado</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">004</td>
+								<td data-label="Producto">Zapatillas Deportivas</td>
+								<td data-label="Descripción">Ropa</td>
+								<td data-label="Precio">$89.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">005</td>
+								<td data-label="Producto">Set de Cocina Premium</td>
+								<td data-label="Descripción">Hogar</td>
+								<td data-label="Precio">$249.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">006</td>
+								<td data-label="Producto">Tablet Ultra HD</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$349.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">007</td>
+								<td data-label="Producto">Camiseta Algodón</td>
+								<td data-label="Descripción">Ropa</td>
+								<td data-label="Precio">$29.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">008</td>
+								<td data-label="Producto">Mochila Impermeable</td>
+								<td data-label="Descripción">Accesorios</td>
+								<td data-label="Precio">$59.99</td>
+								<td data-label="Cantidad">0</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-danger">Agotado</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">009</td>
+								<td data-label="Producto">Smart TV 55" 4K</td>
+								<td data-label="Descripción">Electrónicos</td>
+								<td data-label="Precio">$699.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+							<tr>
+								<td data-label="ID">010</td>
+								<td data-label="Producto">Set de Jardinería</td>
+								<td data-label="Descripción">Hogar</td>
+								<td data-label="Precio">$79.99</td>
+								<td data-label="Cantidad">12</td>
+								<td data-label="Stock">
+									<span class="badge text-bg-success">En stock</span>
+								</td>
+								<td data-label="Acciones">
+									<button type="button" class="btn btn-warning" title="Editar"><i
+											class="fas fa-pen-to-square"></i></button>
+									<button type="button" class="btn btn-danger" title="Eliminar"><i
+											class="fas fa-trash-can"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<!-- Gráficos: línea y barras -->
+				<div class="row g-4 mb-4">
+					<div class="col-lg-6">
+						<div class="card-dashboard card p-3 p-lg-4">
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<h5 class="fw-semibold mb-0"><i class="fas fa-chart-line me-2 text-primary"></i> Ventas
+									mensuales</h5>
+								<span class="badge bg-light text-dark">2025</span>
+							</div>
+							<canvas id="salesChart" style="max-height: 280px; width:100%"></canvas>
+						</div>
+					</div>
+					<div class="col-lg-6">
+						<div class="card-dashboard card p-3 p-lg-4">
+							<div class="d-flex justify-content-between align-items-center mb-3">
+								<h5 class="fw-semibold mb-0"><i class="fas fa-chart-bar me-2 text-info"></i> Usuarios
+									por segmento</h5>
+								<span class="badge bg-light text-dark">activos</span>
+							</div>
+							<canvas id="usersChart" style="max-height: 280px; width:100%"></canvas>
+						</div>
+					</div>
+				</div>
+
+				<!-- Tabla de pedidos recientes -->
+				<div class="card-dashboard card p-3 p-lg-4">
+					<div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+						<h5 class="fw-semibold mb-2 mb-sm-0"><i class="fas fa-list-ul me-2 text-secondary"></i> Pedidos
+							recientes</h5>
+						<button class="btn btn-sm btn-outline-primary">Ver todos <i
+								class="fas fa-arrow-right ms-1"></i></button>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-hover align-middle table-custom">
+							<thead>
+								<tr>
+									<th>ID Pedido</th>
+									<th>Cliente</th>
+									<th>Producto</th>
+									<th>Fecha</th>
+									<th>Estado</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>#00124</td>
+									<td>María López</td>
+									<td>Laptop Pro</td>
+									<td>2025-06-02</td>
+									<td><span class="badge-status"><i class="fas fa-check-circle me-1"></i>
+											Completado</span></td>
+									<td>$1,299</td>
+								</tr>
+								<tr>
+									<td>#00123</td>
+									<td>Carlos Ruiz</td>
+									<td>Smartphone X</td>
+									<td>2025-06-01</td>
+									<td><span class="badge-status"><i class="fas fa-check-circle me-1"></i>
+											Completado</span></td>
+									<td>$899</td>
+								</tr>
+								<tr>
+									<td>#00122</td>
+									<td>Andrea Gómez</td>
+									<td>Auriculares inalámbricos</td>
+									<td>2025-05-30</td>
+									<td><span
+											class="badge bg-warning bg-opacity-10 text-warning px-3 py-1 rounded-pill"><i
+												class="fas fa-clock me-1"></i> Pendiente</span></td>
+									<td>$129</td>
+								</tr>
+								<tr>
+									<td>#00121</td>
+									<td>Fernando Díaz</td>
+									<td>Monitor 27" 4K</td>
+									<td>2025-05-29</td>
+									<td><span class="badge-status"><i class="fas fa-check-circle me-1"></i>
+											Completado</span></td>
+									<td>$450</td>
+								</tr>
+								<tr>
+									<td>#00120</td>
+									<td>Lucía Méndez</td>
+									<td>Teclado mecánico</td>
+									<td>2025-05-28</td>
+									<td><span
+											class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-1 rounded-pill">Envío</span>
+									</td>
+									<td>$89</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- footer ligero -->
+				<div th:insert="~{/administrador/template_admin.html::footer}"></div>
+			</div>
+		</div>
+	</div>
+
+	<div th:insert="~{/administrador/template_admin.html::jsFiles}"></div>
+</body>
+
+</html>
